@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>VolleyTrack</title>
+<style>
+:root{--bg:#05070d;--card:#0e1422;--line:#1c2740;--blue:#1f6bff;--blue2:#4d9bff;--txt:#fff;--mut:#8a97b3;--bad:#ff5d6c;--ok:#35d399;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,.big{font-family:"Arial Narrow","Roboto Condensed",Impact,system-ui,sans-serif;font-weight:800;letter-spacing:.2px;margin:0}
+#app{max-width:520px;margin:0 auto;padding:16px 16px 110px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
+.mut{color:var(--mut);font-size:14px}
+.row{display:flex;gap:12px;align-items:center}
+.grow{flex:1}
+.avatar{width:48px;height:48px;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-size:22px;font-weight:800}
+.cta{width:100%;border:0;border-radius:16px;padding:18px;font-size:20px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 8px 30px rgba(31,107,255,.45);cursor:pointer;margin-bottom:12px;animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 8px 40px rgba(77,155,255,.75)}}
+.btn{border:1px solid var(--line);background:#141c30;color:#fff;border-radius:12px;padding:10px 14px;font-size:15px;cursor:pointer}
+.btn.pri{background:var(--blue);border-color:var(--blue)}
+.btn.del{color:var(--bad)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.num{font-size:34px;line-height:1}
+.bar{height:8px;border-radius:8px;background:#16203a;overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:8px;transition:width .6s ease}
+.sk{margin:10px 0}
+.sk .row{justify-content:space-between;font-size:14px;margin-bottom:4px}
+label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+input,select,textarea{width:100%;background:#0a101d;color:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px;font-family:inherit}
+input:focus,select:focus,textarea:focus,.btn:focus-visible,.cta:focus-visible,nav button:focus-visible{outline:2px solid var(--blue2);outline-offset:2px}
+.err{background:#2a1017;border:1px solid var(--bad);color:#ffb3bb;border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:14px}
+.empty{text-align:center;padding:36px 16px}
+.tag{font-size:12px;padding:3px 8px;border-radius:20px;background:#13203d;color:var(--blue2)}
+.up{color:var(--ok)}.down{color:var(--bad)}
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(5,7,13,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;max-width:100px;background:none;border:0;color:var(--mut);font-size:12px;padding:6px 0;cursor:pointer}
+nav button span{display:block;font-size:20px}
+nav button.on{color:var(--blue2)}
+.top{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 14px}
+.motto{color:var(--blue2);font-size:13px}
+svg{max-width:100%}
+details.ex{padding:12px 16px}details.ex summary{cursor:pointer;display:flex;justify-content:space-between;gap:8px;align-items:center;list-style:none}details.ex summary::-webkit-details-marker{display:none}details.ex p{margin:8px 0 0}.warn{background:#2a2410;border:1px solid #e0b43a;color:#ffe29a;border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:14px}
+body{background:radial-gradient(900px 420px at 50% -8%,rgba(31,107,255,.32),transparent 65%),#000}#app{animation:fade .3s ease}@keyframes fade{from{opacity:0;transform:translateY(6px)}}.card{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(110,160,255,.18);backdrop-filter:blur(12px);border-radius:22px;box-shadow:0 10px 30px rgba(0,0,0,.4)}.cta{border-radius:20px;letter-spacing:.5px}nav{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:6px 8px;border:1px solid rgba(110,160,255,.22);border-radius:28px;background:rgba(10,14,26,.82);align-items:center;max-width:496px;margin:0 auto}nav button span{display:grid;place-items:center;margin-bottom:2px}nav button.on{color:#fff}nav button.on span{color:var(--blue2)}nav button.fab span{width:56px;height:56px;margin:-30px auto 2px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 8px 24px rgba(31,107,255,.6)}.seg{display:flex;gap:4px;background:#0a101d;border:1px solid var(--line);border-radius:16px;padding:4px;margin:6px 0 14px}.seg button{flex:1;border:0;border-radius:12px;background:none;color:var(--mut);padding:9px 0;font-size:14px;cursor:pointer}.seg button.on{background:var(--blue);color:#fff}.num{text-shadow:0 0 24px rgba(77,155,255,.5)}
+@media(prefers-reduced-motion:reduce){.cta{animation:none}.bar>i{transition:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav id="nav"></nav>
+<script>
+/* ===== Datos y almacenamiento ===== */
+const KEY='volleytrack:v1';
+const SK=[
+ {k:'saque',n:'Saque',a:'Aciertos',b:'Errores'},
+ {k:'recepcion',n:'Recepción',a:'Positivas',b:'Negativas'},
+ {k:'remate',n:'Remate',a:'Exitosos',b:'Errores'},
+ {k:'colocacion',n:'Colocación',a:'Precisas',b:'Errores'},
+ {k:'defensa',n:'Defensa',a:'Exitosas',b:'No controlados'}];
+let S={profile:{name:'',pos:'punta',lvl:'principiante',hand:'derecha',goal:'',weekly:3},sessions:[]};
+let storageOk=true;
+try{const r=localStorage.getItem(KEY);if(r){const d=JSON.parse(r);S.profile={...S.profile,...d.profile};S.sessions=Array.isArray(d.sessions)?d.sessions:[]}}catch(e){storageOk=false}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){storageOk=false}}
+
+/* ===== Utilidades ===== */
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct=(a,b)=>a+b>0?Math.round(a/(a+b)*100):null;
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const today=()=>ymd(new Date());
+const fmtDate=s=>{const[y,m,d]=s.split('-');return new Date(y,m-1,d).toLocaleDateString('es',{weekday:'short',day:'numeric',month:'short'})};
+const sorted=()=>[...S.sessions].sort((a,b)=>a.date===b.date?a.id-b.id:a.date<b.date?-1:1);
+function overall(s){let a=0,t=0;SK.forEach(k=>{const[x,y]=s.sk[k.k]||[0,0];a+=x;t+=x+y});return pct(a,t-a)}
+function weekStart(){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return ymd(d)}
+const weekCount=()=>{const w=weekStart();return S.sessions.filter(s=>s.date>=w).length};
+const days=()=>new Set(S.sessions.map(s=>s.date)).size;
+const bars=(label,p,extra='')=>`<div class="sk"><div class="row"><span>${label}</span><b>${p===null?'—':p+'%'}</b></div><div class="bar"><i style="width:${p||0}%"></i></div>${extra}</div>`;
+
+/* ===== Navegación ===== */
+let view='home';
+const TABS_OLD=[['home','🏠','Inicio'],['new','➕','Entrenar'],['hist','📋','Historial'],['rut','🏋️','Rutinas'],['stats','📈','Stats'],['prof','👤','Perfil']];
+const ic=p=>`<svg viewBox='0 0 24 24' width='22' height='22' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>${p}</svg>`;const TABS=[['home',ic("<path d='M3 11l9-8 9 8v10h-6v-6H9v6H3z'/>"),'Inicio'],['rut',ic("<path d='M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12'/>"),'Rutinas'],['new',ic("<path d='M12 5v14M5 12h14'/>"),'Entrenar','fab'],['rep',ic("<circle cx='12' cy='12' r='9'/><path d='M10 8.5l6 3.5-6 3.5z'/>"),'Replay'],['prog',ic("<path d='M4 20V10M10 20V4M16 20v-8M22 20H2'/>"),'Progreso']];function xpInfo(){const ss=sorted(),seen=new Set(),best={};let xp=0,rec=0;ss.forEach(s=>{if(!seen.has(s.date)){seen.add(s.date);xp+=20+Math.min(30,Math.floor(s.dur/3))+SK.filter(k=>(s.sk[k.k]||[0,0]).some(x=>x>0)).length*4}SK.forEach(k=>{const[a,b]=s.sk[k.k]||[0,0];if(a+b>=5){const p=pct(a,b);if(best[k.k]!==undefined&&p>best[k.k]){xp+=15;rec++}if(best[k.k]===undefined||p>best[k.k])best[k.k]=p}})});const L=1+Math.floor(Math.sqrt(xp/60));return{xp,rec,L,lo:60*(L-1)**2,hi:60*L*L}}const totalOf=k=>S.sessions.reduce((t,s)=>t+((s.sk[k]||[0,0])[0]+(s.sk[k]||[0,0])[1]),0);function streak(){const d=[...new Set(S.sessions.map(s=>s.date))].sort();let best=0,run=0,prev=null;d.forEach(x=>{const t=new Date(x+'T00:00:00').getTime();run=prev!==null&&Math.round((t-prev)/864e5)===1?run+1:1;prev=t;best=Math.max(best,run)});return best}const ACH=[['Primera sesión','Registra tu primer entrenamiento',()=>S.sessions.length>=1],['Constante','5 sesiones registradas',()=>S.sessions.length>=5],['Veterano','20 sesiones registradas',()=>S.sessions.length>=20],['Semana cumplida','Cumple tu objetivo semanal',()=>weekCount()>=S.profile.weekly],['Racha de 3','Entrena 3 días seguidos',()=>streak()>=3],['Nuevo récord','Supera un récord personal',()=>xpInfo().rec>0],['Mil toques','100 intentos de saque',()=>totalOf('saque')>=100],['Ojo de águila','Marca un momento en Replay Lab',()=>(S.profile.marks||0)>0]];function vLog(){const x=xpInfo();return `<div class='card'><div class='row'><div class='num big'>Nv ${x.L}</div><div class='grow'><div class='mut'>${x.xp} XP · faltan ${x.hi-x.xp} para el siguiente nivel</div><div class='bar' style='margin-top:6px'><i style='width:${Math.round((x.xp-x.lo)/(x.hi-x.lo)*100)}%'></i></div></div></div><p class='mut'>El XP se gana con sesiones reales, una vez al día, y al superar récords. Entrenar más el mismo día no da más XP: descansar también es mejorar.</p></div>`+ACH.map(a=>{const ok=a[2]();return `<div class='card row' style='opacity:${ok?1:.45}'><div class='avatar' style='${ok?'':'background:#1c2740'}'>${ok?'★':'·'}</div><div><b>${a[0]}</b><div class='mut'>${a[1]}</div></div></div>`}).join('')}function vObj(){const g=S.profile.goals||{};return `<div class='card'><h3>Objetivos por habilidad</h3><p class='mut'>Define el % de éxito que quieres alcanzar. Déjalo vacío para no fijar objetivo.</p>${SK.map(k=>{const sr=skillSeries(k.k),avg=sr.length?Math.round(sr.reduce((t,x)=>t+x.p*x.n,0)/sr.reduce((t,x)=>t+x.n,0)):null;return `<div class='sk'><div class='row'><label for='g-${k.k}' style='margin:0' class='grow'>${k.n}${avg!==null?' · promedio '+avg+'%':''}</label><input id='g-${k.k}' type='number' inputmode='numeric' min='1' max='100' value='${g[k.k]||''}' style='width:84px' placeholder='%'></div>${g[k.k]&&avg!==null?`<div class='bar' style='margin-top:6px'><i style='width:${Math.min(100,Math.round(avg/g[k.k]*100))}%'></i></div>`:''}</div>`}).join('')}<button class='btn pri' id='g-save' style='width:100%'>Guardar objetivos</button><div id='g-msg' class='mut'></div></div>`}function bindObj(){$('#g-save').onclick=()=>{const g={};let bad=false;SK.forEach(k=>{const v=$('#g-'+k.k).value;if(v==='')return;if(!/^\d+$/.test(v)||+v<1||+v>100)bad=true;else g[k.k]=+v});if(bad){$('#g-msg').textContent='Usa números enteros entre 1 y 100.';return}S.profile.goals=g;save();render()}}let pTab='stats';function vProg(){const T=[['stats','Stats'],['hist','Historial'],['log','Logros'],['obj','Metas']];return `<div class='seg'>${T.map(t=>`<button data-t='${t[0]}' class='${pTab===t[0]?'on':''}'>${t[1]}</button>`).join('')}</div>`+({stats:vStats,hist:vHist,log:vLog,obj:vObj}[pTab])()}function bindProg(){document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{pTab=b.dataset.t;render()});if(pTab==='hist')bindHist();if(pTab==='obj')bindObj()}function bindBackup(){$('#bk-exp').onclick=async()=>{const t=JSON.stringify(S);$('#bk').value=t;$('#bk').select();let m='Texto generado. Cópialo y guárdalo.';try{await navigator.clipboard.writeText(t);m='Copiado al portapapeles.'}catch(e){}$('#bk-msg').textContent=m};$('#bk-imp').onclick=()=>{try{const d=JSON.parse($('#bk').value);if(!Array.isArray(d.sessions)||!d.sessions.every(s=>s&&typeof s.date==='string'&&typeof s.dur==='number'&&s.sk&&typeof s.sk==='object'))throw 0;if(!confirm('Esto reemplazará tus datos actuales. ¿Continuar?'))return;S.sessions=d.sessions;S.profile={...S.profile,...(d.profile||{})};save();go('home')}catch(e){$('#bk-msg').textContent='El texto no es una copia válida de VolleyTrack.'}}}let repSel=null,repCmp=false,repLoaded=false,vids=[],chk=[],repErr='',urls=[];const tfmt=t=>Math.floor(t/60)+':'+(t%60).toFixed(1).padStart(4,'0');const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('vt-replay',1);r.onupgradeneeded=()=>r.result.createObjectStore('v',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});const idbDo=(mode,fn)=>idb().then(d=>new Promise((res,rej)=>{const t=d.transaction('v',mode),rq=fn(t.objectStore('v'));t.oncomplete=()=>res(rq&&rq.result);t.onerror=()=>rej(t.error)}));async function loadVids(){try{vids=((await idbDo('readonly',s=>s.getAll()))||[]).sort((a,b)=>b.id-a.id)}catch(e){vids=[];repErr='Este navegador no permite guardar videos.'}if(view==='rep')render()}const vurl=v=>{const u=URL.createObjectURL(v.blob);urls.push(u);return u};function vRep(){urls.forEach(u=>URL.revokeObjectURL(u));urls=[];const err=repErr?`<div class='err'>${esc(repErr)}</div>`:'';if(repCmp){const a=vids.filter(v=>chk.includes(v.id));return `<div class='top'><h1 style='font-size:28px'>Comparar</h1><button class='btn' id='r-back'>Volver</button></div>${a.map(v=>`<div class='card'><div class='mut'>${esc(v.name)} · ${fmtDate(v.date)}</div><video class='cv' src='${vurl(v)}' playsinline style='width:100%;border-radius:14px;background:#000;margin-top:8px'></video></div>`).join('')}<div class='card'><div class='grid2'><button class='btn pri' id='c-play'>Reproducir ambos</button><button class='btn' id='c-pause'>Pausar</button></div><div class='row' style='margin-top:10px'>${[.25,.5,1].map(r=>`<button class='btn grow c-rate' data-r='${r}'>${r}×</button>`).join('')}<button class='btn grow' id='c-zero'>Inicio</button></div></div>`}const v=vids.find(x=>x.id===repSel);if(v)return `<div class='top'><h1 style='font-size:24px'>${esc(v.name)}</h1><button class='btn' id='r-back'>Volver</button></div><video id='pv' src='${vurl(v)}' controls playsinline style='width:100%;border-radius:16px;background:#000'></video><div class='row' style='margin:10px 0'>${[.25,.5,1].map(r=>`<button class='btn grow p-rate' data-r='${r}'>${r}×</button>`).join('')}<button class='btn' id='p-bk'>◀ cuadro</button><button class='btn' id='p-fw'>cuadro ▶</button></div><div class='card'><label for='m-text'>Nota en este momento</label><input id='m-text' maxlength='120' placeholder='Ej: pies muy abiertos'><button class='btn pri' id='m-add' style='width:100%;margin-top:8px'>Marcar momento</button><div id='mk'></div></div><button class='btn del' id='v-del'>Eliminar video</button>`;return `<h1 class='top' style='font-size:28px'>Replay Lab</h1>${err}<button class='cta' id='r-add' style='animation:none'>Añadir video</button><input id='r-file' type='file' accept='video/*' style='position:absolute;width:1px;height:1px;opacity:0;pointer-events:none' tabindex='-1'>${vids.length?vids.map(v=>`<div class='card'><div class='row'><input type='checkbox' class='r-chk' data-id='${v.id}' ${chk.includes(v.id)?'checked':''} style='width:22px;height:22px' aria-label='Comparar'><div class='grow'><b>${esc(v.name)}</b><div class='mut'>${fmtDate(v.date)} · ${v.notes.length} marcas</div></div><button class='btn r-open' data-id='${v.id}'>Abrir</button></div></div>`).join('')+(chk.length===2?`<button class='btn pri' id='r-cmp' style='width:100%'>Comparar los 2 videos</button>`:`<p class='mut'>Marca 2 videos para compararlos.</p>`):`<div class='card empty'><p class='mut'>Aún no tienes videos. Añade una grabación de tu entrenamiento para marcar momentos y revisar tu posición.</p></div>`}<p class='mut'>Los videos se guardan solo en este dispositivo.</p>`}function bindRep(){if(!repLoaded){repLoaded=true;loadVids()}const back=$('#r-back');if(back)back.onclick=()=>{repSel=null;repCmp=false;render()};const ab=$('#r-add');if(ab)ab.onclick=()=>$('#r-file').click();const f=$('#r-file');if(f)f.onchange=async()=>{const x=f.files[0];f.value='';if(!x)return;if(x.type&&!x.type.startsWith('video/')){repErr='Elige un archivo de video.';render();return}if(x.size>250*1048576){repErr='El video supera 250 MB. Recórtalo o graba uno más corto.';render();return}try{repErr='';await idbDo('readwrite',s=>s.put({id:Date.now(),name:x.name.slice(0,40),date:today(),blob:x,notes:[]}))}catch(e){repErr='No hay espacio suficiente para guardar el video.'}loadVids()};document.querySelectorAll('.r-open').forEach(b=>b.onclick=()=>{repSel=+b.dataset.id;render()});document.querySelectorAll('.r-chk').forEach(b=>b.onchange=()=>{const id=+b.dataset.id;chk=b.checked?[...chk,id].slice(-2):chk.filter(x=>x!==id);render()});const cb=$('#r-cmp');if(cb)cb.onclick=()=>{repCmp=true;render()};const pv=$('#pv');if(pv){const v=vids.find(x=>x.id===repSel);document.querySelectorAll('.p-rate').forEach(b=>b.onclick=()=>pv.playbackRate=+b.dataset.r);$('#p-bk').onclick=()=>{pv.pause();pv.currentTime=Math.max(0,pv.currentTime-1/30)};$('#p-fw').onclick=()=>{pv.pause();pv.currentTime+=1/30};const draw=()=>{$('#mk').innerHTML=v.notes.length?v.notes.map((n,i)=>`<div class='row' style='padding:8px 0'><button class='btn m-go' data-i='${i}'>${tfmt(n.t)}</button><span class='grow'>${esc(n.x)}</span><button class='btn del m-del' data-i='${i}'>×</button></div>`).join(''):`<p class='mut'>Aún no hay marcas.</p>`;document.querySelectorAll('.m-go').forEach(b=>b.onclick=()=>{pv.currentTime=v.notes[+b.dataset.i].t;pv.pause()});document.querySelectorAll('.m-del').forEach(b=>b.onclick=async()=>{v.notes.splice(+b.dataset.i,1);await idbDo('readwrite',s=>s.put(v));draw()})};draw();$('#m-add').onclick=async()=>{const x=$('#m-text').value.trim();if(!x)return;v.notes.push({t:pv.currentTime,x});v.notes.sort((a,b)=>a.t-b.t);S.profile.marks=(S.profile.marks||0)+1;save();await idbDo('readwrite',s=>s.put(v));$('#m-text').value='';draw()};$('#v-del').onclick=async()=>{if(confirm('¿Eliminar este video y sus notas?')){await idbDo('readwrite',s=>s.delete(v.id));repSel=null;chk=chk.filter(i=>i!==v.id);loadVids()}}}const cv=[...document.querySelectorAll('.cv')];if(cv.length){$('#c-play').onclick=()=>cv.forEach(x=>x.play());$('#c-pause').onclick=()=>cv.forEach(x=>x.pause());$('#c-zero').onclick=()=>cv.forEach(x=>{x.pause();x.currentTime=0});document.querySelectorAll('.c-rate').forEach(b=>b.onclick=()=>cv.forEach(x=>x.playbackRate=+b.dataset.r))}}
+function go(v){view=v;render();window.scrollTo(0,0)}
+function render(){
+ $('#nav').innerHTML=TABS.map(t=>`<button class="${view===t[0]?'on':''} ${t[3]||''}" data-v="${t[0]}"><span>${t[1]}</span>${t[2]}</button>`).join('');
+ $('#nav').querySelectorAll('button').forEach(b=>b.onclick=()=>go(b.dataset.v));
+ const warn=storageOk?'':'<div class="err">No se puede guardar en este navegador (modo privado o bloqueado). Los datos se perderán al cerrar.</div>';
+ $('#app').innerHTML=warn+({home:vHome,new:vNew,hist:vHist,rut:vRut,stats:vStats,prof:vProf,prog:vProg,rep:vRep}[view])();
+ ({new:bindNew,hist:bindHist,prof:bindProf,home:bindHome,rut:bindRut,prog:bindProg,rep:bindRep}[view]||(()=>{}))();
+}
+
+/* ===== Inicio ===== */
+function vHome(){
+ const p=S.profile,ss=sorted(),last=ss[ss.length-1],wk=weekCount(),goal=p.weekly,pr=Math.min(1,wk/goal);
+ const C=2*Math.PI*34;
+ return `<div class="top"><div class="row"><div class="avatar" role="button" aria-label="Perfil" onclick="go('prof')">${esc((p.name||'V')[0].toUpperCase())}</div><div><h1 style="font-size:26px">${esc(p.name||'Jugador')}</h1><div class="mut">${esc(p.pos)} · ${esc(p.lvl)} · mano ${esc(p.hand)}</div></div></div></div>
+ <button class="cta" id="go-new">Iniciar entrenamiento</button><div class='card row'><div class='num big'>Nv ${xpInfo().L}</div><div class='grow'><div class='mut'>${xpInfo().xp} XP</div><div class='bar' style='margin-top:6px'><i style='width:${(x=>Math.round((x.xp-x.lo)/(x.hi-x.lo)*100))(xpInfo())}%'></i></div></div></div>
+ <div class="grid2">
+  <div class="card"><div class="mut">Días entrenados</div><div class="num big">${days()}</div></div>
+  <div class="card row"><svg width="76" height="76" viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" fill="none" stroke="#16203a" stroke-width="8"/><circle cx="40" cy="40" r="34" fill="none" stroke="#4d9bff" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pr)}" transform="rotate(-90 40 40)"/><text x="40" y="46" text-anchor="middle" fill="#fff" font-size="18" font-weight="800">${wk}/${goal}</text></svg><div class="mut">Sesiones esta semana</div></div>
+ </div>
+ <div class="card"><h3>Última sesión</h3>${last?`<div class="mut">${fmtDate(last.date)} · ${last.dur} min</div><div class="row" style="margin:8px 0"><div class="num big">${overall(last)}%</div><div class="mut">acierto global</div></div>${SK.map(k=>{const[a,b]=last.sk[k.k]||[0,0];return a+b?bars(k.n,pct(a,b),`<div class="mut">${a} de ${a+b}</div>`):''}).join('')}`:`<div class="empty"><div style="font-size:40px">🏐</div><p class="mut">Aún no tienes entrenamientos registrados. Toca “Iniciar entrenamiento” para guardar tu primera sesión.</p></div>`}</div>
+ <div class="grid2"><button class="btn" id="q-hist">📋 Historial</button><button class="btn" id="q-stats">📈 Estadísticas</button></div>
+ <p class="motto" style="text-align:center;margin-top:18px">Entrena. Registra. Evoluciona.</p>`;
+}
+function bindHome(){$('#go-new').onclick=()=>go('new');$('#q-hist').onclick=()=>{pTab='hist';go('prog')};$('#q-stats').onclick=()=>{pTab='stats';go('prog')}}
+
+/* ===== Registro ===== */
+function vNew(){
+ return `<h1 class="top" style="font-size:28px">Nueva sesión</h1><div id="msg"></div>
+ <div class="card"><div class="grid2"><div><label for="f-date">Fecha</label><input id="f-date" type="date" value="${today()}" max="${today()}"></div><div><label for="f-dur">Duración (min)</label><input id="f-dur" type="number" inputmode="numeric" min="1" max="300" placeholder="60"></div></div></div>
+ ${SK.map(k=>`<div class="card"><h3>${k.n}</h3><div class="grid2" style="margin-top:8px"><div><label for="${k.k}-a">${k.a}</label><input id="${k.k}-a" type="number" inputmode="numeric" min="0" max="999" placeholder="0"></div><div><label for="${k.k}-b">${k.b}</label><input id="${k.k}-b" type="number" inputmode="numeric" min="0" max="999" placeholder="0"></div></div><div class="mut" id="${k.k}-t" style="margin-top:8px">Total: 0 intentos</div></div>`).join('')}
+ <div class="card"><label for="f-notes">Notas (opcional)</label><textarea id="f-notes" rows="3" maxlength="400"></textarea></div>
+ <button class="cta" id="save" style="animation:none">Guardar sesión</button>
+ <p class="mut">Deja en 0 las habilidades que no practicaste. Los porcentajes se calculan solo con tus datos.</p>`;
+}
+function bindNew(){
+ SK.forEach(k=>['a','b'].forEach(x=>$('#'+k.k+'-'+x).oninput=()=>{const a=+$('#'+k.k+'-a').value||0,b=+$('#'+k.k+'-b').value||0;const p=pct(a,b);$('#'+k.k+'-t').textContent=`Total: ${a+b} intentos`+(p!==null?` · ${p}% de éxito`:'')}));
+ $('#save').onclick=()=>{
+  const err=[],date=$('#f-date').value,dur=$('#f-dur').value,sk={};let any=false;
+  if(!date||date>today())err.push('La fecha es obligatoria y no puede ser futura.');
+  if(!/^\d+$/.test(dur)||+dur<1||+dur>300)err.push('La duración debe ser un entero entre 1 y 300 minutos.');
+  SK.forEach(k=>{const ra=$('#'+k.k+'-a').value,rb=$('#'+k.k+'-b').value;
+   if((ra!==''&&!/^\d+$/.test(ra))||(rb!==''&&!/^\d+$/.test(rb))||+ra>999||+rb>999){err.push(`${k.n}: usa enteros entre 0 y 999.`);return}
+   sk[k.k]=[+ra||0,+rb||0];if(sk[k.k][0]+sk[k.k][1]>0)any=true});
+  if(!any&&!err.length)err.push('Registra al menos una habilidad con intentos.');
+  if(err.length){$('#msg').innerHTML=`<div class="err">${err.map(esc).join('<br>')}</div>`;window.scrollTo(0,0);return}
+  S.sessions.push({id:Date.now(),date,dur:+dur,notes:$('#f-notes').value.trim(),sk});save();go('home');
+ };
+}
+
+/* ===== Historial ===== */
+function vHist(){
+ const ss=sorted().reverse();
+ if(!ss.length)return `<h1 class="top" style="font-size:28px">Historial</h1><div class="card empty"><div style="font-size:40px">📋</div><p class="mut">No hay entrenamientos registrados todavía.</p><button class="btn pri" id="h-new">Registrar sesión</button></div>`;
+ return `<h1 class="top" style="font-size:28px">Historial</h1>`+ss.map(s=>`<div class="card"><div class="row"><div class="grow"><b>${fmtDate(s.date)}</b><div class="mut">${s.dur} min</div></div><div class="num big" style="font-size:28px">${overall(s)}%</div></div>
+ <div style="margin:8px 0">${SK.map(k=>{const[a,b]=s.sk[k.k]||[0,0];return a+b?`<span class="tag">${k.n} ${pct(a,b)}% (${a}/${a+b})</span> `:''}).join('')}</div>
+ ${s.notes?`<div class="mut">“${esc(s.notes)}”</div>`:''}<div style="text-align:right;margin-top:8px"><button class="btn del" data-id="${s.id}">Eliminar</button></div></div>`).join('');
+}
+function bindHist(){
+ const n=$('#h-new');if(n)n.onclick=()=>go('new');
+ document.querySelectorAll('.del').forEach(b=>b.onclick=()=>{if(confirm('¿Eliminar esta sesión? No se puede deshacer.')){S.sessions=S.sessions.filter(s=>s.id!=b.dataset.id);save();render()}});
+}
+
+/* ===== Estadísticas ===== */
+function skillSeries(k){return sorted().map(s=>{const[a,b]=s.sk[k]||[0,0];return a+b?{p:pct(a,b),n:a+b,d:s.date}:null}).filter(Boolean)}
+function vStats(){
+ const ss=sorted();
+ if(!ss.length)return `<h1 class="top" style="font-size:28px">Estadísticas</h1><div class="card empty"><div style="font-size:40px">📈</div><p class="mut">Aún no hay datos. Registra tu primera sesión para ver gráficos, récords y tendencias.</p></div>`;
+ const pts=ss.slice(-10).map(overall),W=300,H=110,step=pts.length>1?(W-20)/(pts.length-1):0;
+ const xy=pts.map((p,i)=>[10+i*step,H-10-(H-20)*p/100]);
+ const chart=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Acierto global por sesión"><line x1="10" x2="${W-10}" y1="${H-10}" y2="${H-10}" stroke="#1c2740"/><polyline fill="none" stroke="#4d9bff" stroke-width="3" stroke-linejoin="round" points="${xy.map(p=>p.join(',')).join(' ')}"/>${xy.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#1f6bff"/><text x="${p[0]}" y="${Math.max(10,p[1]-8)}" text-anchor="middle" fill="#8a97b3" font-size="9">${pts[i]}</text>`).join('')}</svg>`;
+ const rows=SK.map(k=>{const sr=skillSeries(k.k);if(!sr.length)return{k,none:1};
+  const avg=Math.round(sr.reduce((t,x)=>t+x.p*x.n,0)/sr.reduce((t,x)=>t+x.n,0));
+  const rec=sr.filter(x=>x.n>=5).sort((a,b)=>b.p-a.p)[0];let tr=null;
+  if(sr.length>=2){const prev=sr.slice(0,-1),pa=prev.reduce((t,x)=>t+x.p,0)/prev.length;tr=Math.round(sr[sr.length-1].p-pa)}
+  return{k,avg,rec,tr}});
+ const better=rows.filter(r=>r.tr!==null&&r.tr>=5),worse=rows.filter(r=>r.tr!==null&&r.tr<=-5);
+ return `<h1 class="top" style="font-size:28px">Estadísticas</h1>
+ <div class="card"><h3>Acierto global por sesión</h3><div class="mut">Últimas ${pts.length} sesiones</div>${chart}</div>
+ <div class="card"><h3>Promedio por habilidad</h3>${rows.map(r=>r.none?bars(r.k.n,null,'<div class="mut">Sin datos</div>'):bars(r.k.n,r.avg,r.tr!==null?`<div class="mut ${r.tr>=0?'up':'down'}">${r.tr>=0?'▲':'▼'} ${Math.abs(r.tr)} pts vs. sesiones anteriores</div>`:'<div class="mut">Registra otra sesión para ver tendencia</div>')).join('')}</div>
+ <div class="card"><h3>Récords personales</h3><div class="mut">Mejor sesión por habilidad (mínimo 5 intentos)</div>${rows.map(r=>`<div class="row" style="justify-content:space-between;padding:6px 0"><span>${r.k.n}</span><b>${r.rec?r.rec.p+'% · '+fmtDate(r.rec.d):'—'}</b></div>`).join('')}</div>
+ <div class="card"><h3>Evolución</h3><p class="up">${better.length?'Mejoran: '+better.map(r=>r.k.n).join(', '):'Aún no hay mejoras claras (≥5 pts).'}</p><p class="down">${worse.length?'Necesitan práctica: '+worse.map(r=>r.k.n).join(', '):'Ninguna habilidad ha bajado (≥5 pts).'}</p></div>`;
+}
+
+/* ===== Rutinas ===== */
+const POSK={'líbero':'libero','colocador':'colocador','central':'central','opuesto':'opuesto','punta':'punta'};
+const E=(n,d,h,t,c)=>({n,d,h,t,c});
+const JUMP=[
+ E('Sentadilla con salto','3×8 · 60 s descanso','Pies al ancho de hombros, baja a 90° y salta explosivo. Aterriza suave con las rodillas flexionadas.','Lanza los brazos atrás y arriba como en el remate.','Igual, sin pesas y en cualquier espacio.'),
+ E('Salto al cajón','3×5','Salta sobre un cajón estable de 30–50 cm y baja caminando, sin saltar hacia abajo.','Calidad sobre cantidad: cada salto con máxima intención.','Usa un escalón o banco firme y bajo.'),
+ E('Sentadilla búlgara','3×8 por pierna','Pie trasero apoyado en un banco; baja controlado y sube con fuerza.','Rodilla alineada con el pie y torso erguido.','Usa una silla firme y una mochila con peso.'),
+ E('Elevación de talones','3×15','Sube en puntas de pie, pausa 1 s arriba y baja lento.','Las pantorrillas aportan mucho al impulso.','Hazlo en el borde de un escalón.'),
+ E('Salto vertical con carrera','5×3 · 90 s descanso','Aproximación de 3 pasos y salto máximo hacia el punto más alto posible.','Marca tu alcance y anótalo cada semana.','Marca la pared con tiza o cinta.'),
+ E('Peso muerto a una pierna','3×8 por pierna','Inclina el torso llevando la pierna libre atrás con espalda neutra y vuelve.','Glúteos e isquios protegen la rodilla al aterrizar.','Sin peso, o con una botella de agua.')];
+const RUT={
+ libero:[E('Defensa con rodada','3×8 por lado','Desde posición baja, cae hacia un lado, rueda sobre la espalda y levántate.','Mantén los brazos juntos y la mirada en el balón.','Hazlo sobre colchoneta o césped.'),E('Recepción a zona objetivo','4×10 balones','Recibe saques o lanzamientos y dirige el balón a un punto marcado del colocador.','Plataforma plana y mueve los pies antes de tocar.','Recibe lanzamientos de un compañero, o rebotes contra la pared.'),E('Desplazamiento lateral con cierre','4×20 s','Pasos laterales rápidos tocando conos o marcas a 3 m.','Caderas bajas y sin cruzar los pies.','Usa dos objetos como marcas.'),E('Escalera de agilidad','4 pasadas','Pasos rápidos por una escalera dibujada en el piso.','Pies ligeros, cabeza arriba.','Dibuja la escalera con cinta o tiza.')],
+ colocador:[E('Colocación a objetivo','5×10','Coloca a un punto fijo de la red desde distintas distancias.','Manos arriba antes de llegar al balón.','Coloca contra una pared a una altura marcada.'),E('Trabajo de dedos y manos','3×12','Lanza el balón hacia arriba y recíbelo con los dedos sin que caiga.','Contacto suave y usa las piernas.','Igual, en cualquier espacio.'),E('Desplazamiento a la red','4×6','Desde la defensa, corre a la posición de colocación y coloca en salto.','Llega con el cuerpo frente al objetivo.','Practica la entrada con pasos cortos y un lanzamiento.'),E('Colocación en movimiento','3×8 por lado','Coloca mientras te desplazas lateralmente y finaliza con la vista al objetivo.','Pies primero, manos después.','Hazlo contra una pared con pasos laterales.')],
+ central:[E('Bloqueo con desplazamiento','3×6 por lado','Desplázate a lo largo de la red y salta bloqueando con las manos firmes por encima.','Pasa las manos sobre la red, hombros activos.','Simula con pasos laterales y saltos.'),E('Ataque rápido','4×8','Aproximación corta de 2–3 pasos y remate rápido al colocador.','Brazos listos antes de los pasos.','Practica el patrón de pasos sin balón.'),E('Saltos consecutivos de bloqueo','3×8','Salta y baja con control, repitiendo el salto de bloqueo con brazos arriba.','Aterrizaje silencioso.','Salta junto a una pared sin tocarla.'),E('Zancada lateral con banda','3×10 por lado','Banda en rodillas; da pasos laterales con las rodillas abiertas.','Mantén tensión constante.','Usa una banda o sube y baja pasos pequeños.')],
+ opuesto:[E('Remate desde zona 2','4×8','Aproximación con 3–4 pasos y remate fuerte desde la diagonal derecha.','Golpe arriba y por delante del cuerpo.','Haz la aproximación y el movimiento de brazos sin balón.'),E('Remate diagonal y línea','3×10','Alterna dirección entre diagonal y línea sin cambiar la preparación.','Cambia la dirección con la muñeca y el hombro.','Lanza el balón contra una pared a marcas.'),E('Bloqueo con salto','3×6','Salta con las manos al frente y cae de forma controlada.','Hombros hacia adelante.','Salta junto a una pared.'),E('Rotación externa con banda','3×12 por brazo','Codo pegado al costado y gira el antebrazo hacia afuera con banda.','Controla la vuelta.','Usa una banda o una botella ligera.')],
+ punta:[E('Recepción y ataque','4×6','Recibe un saque, aprieta la aproximación y remata el pase siguiente.','Primero la recepción, luego el ataque.','Recepción con pared y práctica de pasos de remate.'),E('Remate desde zona 4','4×8','Aproximación en 3–4 pasos, brazo atrás y remate potente.','Golpea el balón en el punto más alto.','Aproximación y movimiento de brazos sin balón.'),E('Saque flotante o en salto','20 saques','Lanza el balón estable, golpea con la palma y apunta a zonas.','Repite el mismo lanzamiento.','Practica el lanzamiento y la aproximación.'),E('Defensa en zona 5','3×10','Reacciona ante remates cortos y defiende con plataforma firme.','Mantén el peso adelante.','Reacciones con lanzamientos a poca distancia.')]};
+let rutPos=null;
+const exCard=e=>`<details class="card ex"><summary><b>${e.n}</b><span class="tag">${e.d}</span></summary><p>${e.h}</p><p class="mut">💡 ${e.t}</p><p class="mut">🏠 En casa: ${e.c}</p></details>`;
+function vRut(){
+ const cur=rutPos||S.profile.pos,list=RUT[POSK[cur]]||RUT.punta;
+ const c=new Date();c.setDate(c.getDate()-6);const recent=new Set(S.sessions.filter(s=>s.date>=ymd(c)).map(s=>s.date)).size;
+ return `<h1 class="top" style="font-size:28px">Rutinas</h1>
+ ${recent>=5?'<div class="warn">Entrenaste 5 días o más en la última semana. Descansa hoy: el progreso también se construye recuperando.</div>':''}
+ <div class="card"><label for="r-pos">Posición</label><select id="r-pos">${Object.keys(POSK).map(p=>`<option ${p===cur?'selected':''}>${p}</option>`).join('')}</select></div>
+ <h3 style="margin:14px 0 8px">Técnica de ${esc(cur)}</h3>${list.map(exCard).join('')}
+ <h3 style="margin:14px 0 4px">Salta más alto (todas las posiciones)</h3><p class="mut" style="margin:0 0 8px">Haz este bloque 2 días por semana, no seguidos.</p>${JUMP.map(exCard).join('')}
+ <div class="card"><h3>Antes de empezar</h3><p class="mut">Calienta 8–10 min (trote suave, movilidad de caderas y hombros). Deja al menos 48 h entre sesiones de saltos. Si sientes dolor en rodilla, tobillo, hombro o espalda, detén el ejercicio y consulta a un profesional. Estas rutinas son una guía general, no un plan médico.</p></div>`;
+}
+function bindRut(){$('#r-pos').onchange=e=>{rutPos=e.target.value;render()}}
+
+/* ===== Perfil ===== */
+function vProf(){
+ const p=S.profile,opt=(v,list)=>list.map(o=>`<option ${o===v?'selected':''}>${o}</option>`).join('');
+ return `<h1 class="top" style="font-size:28px">Perfil</h1><div id="msg"></div><div class="card">
+ <div class="sk"><label for="p-name">Nombre o apodo</label><input id="p-name" maxlength="30" value="${esc(p.name)}"></div>
+ <div class="sk"><label for="p-pos">Posición</label><select id="p-pos">${opt(p.pos,['líbero','colocador','central','opuesto','punta'])}</select></div>
+ <div class="sk"><label for="p-lvl">Nivel de experiencia</label><select id="p-lvl">${opt(p.lvl,['principiante','intermedio','avanzado','competitivo'])}</select></div>
+ <div class="sk"><label for="p-hand">Mano dominante</label><select id="p-hand">${opt(p.hand,['derecha','izquierda','ambidiestro'])}</select></div>
+ <div class="sk"><label for="p-week">Objetivo: sesiones por semana (1–7)</label><input id="p-week" type="number" inputmode="numeric" min="1" max="7" value="${p.weekly}"></div>
+ <div class="sk"><label for="p-goal">Objetivo personal</label><textarea id="p-goal" rows="2" maxlength="200">${esc(p.goal)}</textarea></div>
+ <button class="btn pri" id="p-save" style="width:100%">Guardar perfil</button></div>
+ <div class="card"><h3>Copia de seguridad</h3><p class="mut">Copia el texto para guardar tus sesiones y perfil, o pégalo aquí para restaurarlos. Los videos no se incluyen.</p><textarea id="bk" rows="3"></textarea><div class="grid2" style="margin-top:8px"><button class="btn" id="bk-exp">Generar y copiar</button><button class="btn pri" id="bk-imp">Importar</button></div><div id="bk-msg" class="mut"></div></div><div class="card"><h3>Datos</h3><p class="mut">Se guardan solo en este dispositivo.</p><button class="btn del" id="p-reset">Borrar todos los datos</button></div>`;
+}
+function bindProf(){bindBackup();
+ $('#p-save').onclick=()=>{const w=$('#p-week').value;
+  if(!/^[1-7]$/.test(w)){$('#msg').innerHTML='<div class="err">El objetivo semanal debe ser un número entre 1 y 7.</div>';return}
+  S.profile={...S.profile,name:$('#p-name').value.trim(),pos:$('#p-pos').value,lvl:$('#p-lvl').value,hand:$('#p-hand').value,weekly:+w,goal:$('#p-goal').value.trim()};save();go('home')};
+ $('#p-reset').onclick=()=>{if(confirm('¿Borrar perfil y todas las sesiones? No se puede deshacer.')){S.sessions=[];S.profile={name:'',pos:'punta',lvl:'principiante',hand:'derecha',goal:'',weekly:3};save();go('home')}};
+}
+render();
+</script>
+</body>
+</html>
